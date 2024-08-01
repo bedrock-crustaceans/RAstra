@@ -51,9 +51,9 @@ async fn handle_connection(conn: Connection) {
         let game_packet = shard.recv().await.unwrap();
 
         match game_packet {
-            GamePacket::PlayerAuthInput(packet) => {
-                println!("{:?}", packet.position);
-            }
+            GamePacket::MovePlayer(packet) => {
+                println!("{:?} {:?} {:?}", packet.position, packet.rotation, packet.head_rotation);
+            },
             _ => {
                 println!("unhandled {:?}", game_packet);
             }
