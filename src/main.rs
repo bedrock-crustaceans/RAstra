@@ -1,8 +1,10 @@
+use bedrock_rs::core::int::VAR;
 use bedrock_rs::proto::connection::Connection;
 use bedrock_rs::proto::gamepacket::GamePacket;
 use bedrock_rs::proto::listener;
 use bedrock_rs::proto::login::login_to_server;
 use bedrock_rs::proto::login::provider::DefaultLoginProvider;
+use bedrock_rs::proto::packets::chunk_radius_updated::ChunkRadiusUpdatedPacket;
 use tokio::main;
 use std::net::{SocketAddr, SocketAddrV4};
 use std::str::FromStr;
@@ -48,9 +50,22 @@ async fn handle_connection(conn: Connection) {
     }
 
     loop {
-        let game_packet = shard.recv().await.unwrap();
+        let game_packet = match shard.recv().await {
+            Ok(v) => v,
+            Err(e) => {
+                println!("ConnectionError {:?}", e);
+                break;
+            }
+        };
 
         match game_packet {
+            GamePacket::RequestChunkRadius(packet) => {
+                let response = ChunkRadiusUpdatedPacket {
+                    chunk_radius: VAR::<u32>::new(packet.chunk_radius_max.into())
+                };
+
+                shard.send(GamePacket::ChunkRadiusUpdate(response)).await.unwrap();
+            },
             GamePacket::MovePlayer(packet) => {
                 println!("{:?} {:?} {:?}", packet.position, packet.rotation, packet.head_rotation);
             },
