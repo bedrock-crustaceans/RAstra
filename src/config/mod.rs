@@ -4,7 +4,7 @@ use std::process::exit;
 
 use serde::{Deserialize, Serialize};
 
-const CONFIG_PATH: &str = "server.properties";
+const CONFIG_PATH: &str = "rastra.toml";
 
 #[derive(Serialize, Deserialize, Debug)]
 #[serde(deny_unknown_fields)]
