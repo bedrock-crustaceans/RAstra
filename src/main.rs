@@ -1,5 +1,5 @@
-use std::process::exit;
 use log::{error, info};
+use std::process::exit;
 
 use crate::config::RAstraConfig;
 
