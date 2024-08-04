@@ -9,7 +9,7 @@ pub fn setup_logger(log_to_file: bool, log_path: &Path) {
         .format(|out, message, record| {
             out.finish(format_args!(
                 "[{} {} {}] {}",
-                Local::now().format("%Y-%m-%d %H:%M:%S%.f%:z"),
+                Local::now().format("%Y-%m-%d %H:%M:%S%.3f"),
                 record.target(),
                 record.level(),
                 message
@@ -22,7 +22,7 @@ pub fn setup_logger(log_to_file: bool, log_path: &Path) {
         let log_file = format!(
             "{}/{}.log",
             log_path.display(),
-            Local::now().format("%Y-%m-%d_%H-%M-%S").to_string()
+            Local::now().format("%Y-%m-%d_%H-%M-%S")
         );
 
         if !log_path.exists() {
