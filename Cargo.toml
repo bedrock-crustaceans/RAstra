@@ -6,3 +6,12 @@ license = "Apache-2.0"
 description = "Modern MCBE server software written in Rust"
 
 [dependencies]
+tokio = { version = "1", features = ["full"] }
+
+serde = { version = "1", features = ["derive"] }
+toml = "0.8"
+
+log = "0.4"
+fern = "0.6"
+fern_colored = "0.6"
+chrono = "0.4"
