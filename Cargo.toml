@@ -15,3 +15,5 @@ log = "0.4"
 fern = "0.6"
 fern_colored = "0.6"
 chrono = "0.4"
+
+bedrock-rs = { path = "../bedrock-rs", features = ["full"] }
