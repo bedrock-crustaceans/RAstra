@@ -18,12 +18,12 @@ fn main() {
         .enable_all()
         .build()
         .unwrap_or_else(|err| {
-            error!("An unexpected Error occurred while trying to create the tokio runtime, Err: {err:?}");
+            error!("An unexpected Error occurred while trying to create the Tokio-Runtime, Err: {err:?}");
             exit(1)
         });
 
     runtime.block_on(async {
-        info!("Tokio-Runtime started!");
+        info!("Tokio-Runtime initialized!");
         rastra_main(config).await;
     });
 }
