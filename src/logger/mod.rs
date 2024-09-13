@@ -17,13 +17,13 @@ pub fn setup_logger(log_to_file: bool, log_path: &Path) {
         .chain(std::io::stdout());
 
     // Set to log level filter
-    dispatch = if cfg!(debug_assertions) {
-        // Allow all logs in debug mode
-        dispatch.level(log::LevelFilter::Trace)
-    } else {
-        // Just allow info level logs and below
-        dispatch.level(log::LevelFilter::Info)
-    };
+    // Allow all logs in debug mode
+    #[cfg(debug_assertions)]
+    dispatch.level(log::LevelFilter::Trace);
+
+    // Just allow info level logs and below
+    #[cfg(not(debug_assertions))]
+    dispatch.level(log::LevelFilter::Info);
 
     if log_to_file {
         let log_file = format!(
