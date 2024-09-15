@@ -5,7 +5,7 @@ use chrono::Local;
 use log::debug;
 
 pub fn setup_logger(log_to_file: bool, log_path: &Path) {
-    let mut dispatch = fern::Dispatch::new()
+    let dispatch = fern::Dispatch::new()
         .format(|out, message, record| {
             out.finish(format_args!(
                 "[{} {} {}] {}",
