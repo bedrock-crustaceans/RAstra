@@ -1,8 +1,8 @@
+use log::debug;
+use serde::{Deserialize, Serialize};
 use std::fs;
 use std::path::PathBuf;
 use std::process::exit;
-
-use serde::{Deserialize, Serialize};
 
 const CONFIG_PATH: &str = "rastra.toml";
 
@@ -86,6 +86,8 @@ pub fn setup_config() -> RAstraConfig {
             exit(1)
         });
     };
+
+    debug!("Config read!");
 
     config
 }

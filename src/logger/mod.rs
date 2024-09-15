@@ -2,6 +2,7 @@ use std::path::Path;
 use std::process::exit;
 
 use chrono::Local;
+use log::debug;
 
 pub fn setup_logger(log_to_file: bool, log_path: &Path) {
     let mut dispatch = fern::Dispatch::new()
@@ -18,12 +19,11 @@ pub fn setup_logger(log_to_file: bool, log_path: &Path) {
 
     // Set to log level filter
     // Allow all logs in debug mode
-    #[cfg(debug_assertions)]
-    dispatch.level(log::LevelFilter::Trace);
+    let mut dispatch = dispatch.level(log::LevelFilter::Trace);
 
     // Just allow info level logs and below
     #[cfg(not(debug_assertions))]
-    dispatch.level(log::LevelFilter::Info);
+    let mut dispatch = dispatch.level(log::LevelFilter::Info);
 
     if log_to_file {
         let log_file = format!(
@@ -42,4 +42,6 @@ pub fn setup_logger(log_to_file: bool, log_path: &Path) {
         eprintln!("An unexpected Error occurred while trying to setup the logger, Err: {err}");
         exit(1);
     });
+
+    debug!("Logger initialized!");
 }
