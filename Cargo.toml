@@ -16,4 +16,6 @@ fern = "0.6"
 fern_colored = "0.6"
 chrono = "0.4"
 
-bedrockrs = { git = "https://github.com/bedrock-crustaceans/bedrock-rs.git", branch = "main", features = ["full"] }
+bedrockrs = { git = "https://github.com/bedrock-crustaceans/bedrockrs", branch = "main", features = ["full"] }
+
+nbtx = { git = "https://github.com/bedrock-crustaceans/nbtx" }
